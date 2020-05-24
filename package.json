@@ -5,10 +5,12 @@
   "main": "src/index.ts",
   "author": "Sam Gwilym <gwilym@me.com>",
   "license": "MIT",
+  "homepage": "https://windups.gwil.co",
   "private": false,
   "peerDependencies": {
     "react": "^16.8.0"
   },
+  "repository": "github:sgwilym/windups",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
