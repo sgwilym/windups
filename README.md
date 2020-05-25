@@ -13,4 +13,4 @@ Use the API to:
 - Trigger animations, sounds or any effect you can think of!
 - Intelligently handle line breaking in text!
 
-Examples, API docs, and guides can all be found at (https://windups.gwil.co)[the docs site]!
+Examples, API docs, and guides can all be found at [the docs site](https://windups.gwil.co)!
