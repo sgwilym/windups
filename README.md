@@ -15,6 +15,8 @@ Use the API to:
 
 Examples, API docs, and guides can all be found at [the docs site](https://windups.gwil.co)!
 
+Source for the docs site is at https://github.com/sgwilym/windups-docs
+
 ## 🗼 Code landmarks
 
 Where the action is happening in this codebase.
