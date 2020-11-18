@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useDebugValue } from "react";
 import { windupFromString, Windup } from "../Windup";
 import useWindup, { HookMetadata } from "./useWindup";
 import { renderStringWindup } from "./renderWindup";
@@ -30,6 +30,9 @@ export default function useWindupString(
   }, [text]);
 
   const { windup, skip, rewind, isFinished } = useWindup(windupInit, options);
+  
+  const rendered = renderStringWindup(windup);
+  useDebugValue(rendered);
 
-  return [renderStringWindup(windup), { skip, rewind, isFinished }];
+  return [rendered, { skip, rewind, isFinished }];
 }

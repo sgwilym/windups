@@ -1,29 +1,54 @@
 import React from "react";
 import breakLines from "break-styled-lines";
 
-function getStringsOfReactChildren(
-  strings: string[],
-  children: React.ReactNode
-): string[] {
-  if (typeof children === "string") {
-    return [...strings, children];
-  }
+function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
+  return (
+    descriptors: { text: string; font: string }[],
+    children: React.ReactNode
+  ): { text: string; font: string }[] => {
+    if (typeof children === "string") {
+      return [...descriptors, { text: children, font: defaultFontStyle }];
+    }
 
-  if (typeof children === "number") {
-    return [...strings, children.toString()];
-  }
+    if (typeof children === "number") {
+      return [
+        ...descriptors,
+        { text: children.toString(), font: defaultFontStyle },
+      ];
+    }
 
-  if (!React.isValidElement(children)) {
-    return strings;
-  }
+    if (!React.isValidElement(children)) {
+      return descriptors;
+    }
 
-  return [
-    ...strings,
-    ...React.Children.toArray(children.props.children).reduce(
-      getStringsOfReactChildren,
-      []
-    )
-  ];
+    if (
+      isStyledTextElement(children) &&
+      typeof children.props.children === "string"
+    ) {
+      return [
+        ...descriptors,
+        { text: children.props.children, font: children.props.fontStyle },
+      ];
+    }
+
+    if (isStyledTextElement(children)) {
+      return [
+        ...descriptors,
+        ...React.Children.toArray(children.props.children).reduce(
+          makeGetDescriptorsOfChildren(children.props.fontStyle),
+          []
+        ),
+      ];
+    }
+
+    return [
+      ...descriptors,
+      ...React.Children.toArray(children.props.children).reduce(
+        makeGetDescriptorsOfChildren(defaultFontStyle),
+        []
+      ),
+    ];
+  };
 }
 
 function reinsertStringsIntoChildren(
@@ -47,11 +72,23 @@ function reinsertStringsIntoChildren(
     [
       ...accChildren,
       React.cloneElement(children, {
-        children: subChildrenAcc
-      })
+        children: subChildrenAcc,
+      }),
     ],
-    subStringsAcc
+    subStringsAcc,
   ];
+}
+
+type StyledTextProps = { children: React.ReactNode; fontStyle: string };
+
+function isStyledTextElement(
+  element: React.ReactElement
+): element is React.ReactElement<StyledTextProps> {
+  return element.type === StyledText;
+}
+
+export function StyledText({ children }: StyledTextProps) {
+  return <>{children}</>;
 }
 
 type LinebreakerProps = {
@@ -62,7 +99,7 @@ type LinebreakerProps = {
 const Linebreaker: React.FC<LinebreakerProps> = ({
   children,
   fontStyle,
-  width
+  width,
 }) => {
   // CAVEATS:
   // fontStyle must match the font style of the characters inside
@@ -70,13 +107,18 @@ const Linebreaker: React.FC<LinebreakerProps> = ({
   // must be used OUTSIDE of WindupChildren component
 
   const childrenArray = React.Children.toArray(children);
-  const strings = childrenArray.reduce(getStringsOfReactChildren, []);
-  const transformedStrings = breakLines(strings, width, fontStyle);
+  const descriptors = childrenArray.reduce(
+    makeGetDescriptorsOfChildren(fontStyle),
+    []
+  );
+
+  const transformedStrings = breakLines(descriptors, width, fontStyle);
+
   const [
-    transformedChildren
+    transformedChildren,
   ] = childrenArray.reduce(reinsertStringsIntoChildren, [
     [],
-    transformedStrings
+    transformedStrings,
   ]);
 
   return <div style={{ whiteSpace: "pre" }}>{transformedChildren}</div>;

@@ -7,7 +7,7 @@ import OnChar from "./react/OnChar";
 import Pause from "./react/Pause";
 import Effect from "./react/Effect";
 import CharWrapper from "./react/CharWrapper";
-import Linebreaker from "./react/Linebreaker";
+import Linebreaker, { StyledText } from "./react/Linebreaker";
 
 const TestComponent: React.FC = ({ children }) => {
   return <b>{children}</b>;
@@ -22,7 +22,7 @@ const RedChar: React.FC = ({ children }) => {
 };
 
 const FunctionChildrenComponent = ({
-  children
+  children,
 }: {
   children: (value: string) => React.ReactNode;
 }) => {
@@ -54,19 +54,24 @@ const Example = () => {
             console.log("I want to see this only once!");
           }}
         >
-          <div
-            style={{
-              width: 100,
-              font: "24px Arial",
-              border: "1px black solid"
-            }}
-          >
-            {"Hello!"}
-            <div>
-              {"Nice to meet you, "}
-              <em>{"truly!"}</em>
+          <Pace ms={500}>
+            <div
+              style={{
+                width: 100,
+                font: "24px Arial",
+                border: "1px black solid",
+              }}
+            >
+              {"Hello!"}
+              <StyledText fontStyle={"12px Arial"}>
+                <div style={{ font: "12px Arial" }}>{"Is this thing on?"}</div>
+              </StyledText>
+              <div>
+                {"Nice to meet you, "}
+                <em>{"truly!"}</em>
+              </div>
             </div>
-          </div>
+          </Pace>
         </WindupChildren>
       </Linebreaker>
       <div>{string}</div>
@@ -74,7 +79,7 @@ const Example = () => {
         <CharWrapper element={RedChar}>
           {"hello "}
           <FunctionChildrenComponent>
-            {value => (
+            {(value) => (
               <div>{`I have function children with a value of ${value}`}</div>
             )}
           </FunctionChildrenComponent>
@@ -82,9 +87,10 @@ const Example = () => {
           <RewindButton />
           <Pause ms={2000} />
           <Effect fn={() => console.log("Paused for a bit there!")} />
-          <OnChar fn={char => console.log(char)}>
+          <OnChar fn={(char) => console.log(char)}>
             {"Way"}
-            <OnChar fn={char => console.log(`✨${char}`)}>{" cool!"}</OnChar>
+            <em>{" aaaah? "}</em>
+            <OnChar fn={(char) => console.log(`✨${char}`)}>{" cool!"}</OnChar>
           </OnChar>
           {1}
           {false}
@@ -94,6 +100,9 @@ const Example = () => {
               {"Hee hee hee!"}
               <Pace ms={1000}>
                 <em>{"Hm..."}</em>
+                <div>
+                  <b>{"Ehhhhhh?"}</b>
+                </div>
               </Pace>
             </Pace>
           </Pace>
