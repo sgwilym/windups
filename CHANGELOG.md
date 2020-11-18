@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1
+
+- Update a few deps for security fixes
+
 ## v1.1.0
 
 - Added a `StyledText` component to be used with `Linebreaker`. Use this if you have differently styled text within a single `Linebreaker` usage.
