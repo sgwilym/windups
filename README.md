@@ -2,6 +2,8 @@
 
 A typewriter effect library for React.
 
+Examples, API docs, and guides can all be found at [the docs site](https://windups.gwil.co)!
+
 Apply the typewriter (or, ahem, "windup") effect to:
 
 - strings
@@ -13,9 +15,7 @@ Use the API to:
 - Trigger animations, sounds or any effect you can think of!
 - Intelligently handle line breaking in text!
 
-Examples, API docs, and guides can all be found at [the docs site](https://windups.gwil.co)!
-
-Source for the docs site is at https://github.com/sgwilym/windups-docs
+Want to see a codebase that makes extensive, real-word use of this package? Source for the docs site is at https://github.com/sgwilym/windups-docs
 
 ## 🗼 Code landmarks
 

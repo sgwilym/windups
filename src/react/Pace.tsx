@@ -1,5 +1,4 @@
 import React from "react";
-import { ChildrenWindup } from "./WindupChildren";
 import { isFinished, memberIsWindup, Windup } from "../Windup";
 import { HookMetadata } from "./useWindup";
 
@@ -59,21 +58,22 @@ export function paceFromWindup<
   M extends HookMetadata,
   W extends Windup<string, M>
 >(
-  windup: W
+  windup: W,
+  parentPace?: (char: string, nextChar: string | undefined) => number
 ): ((char: string, nextChar: string | undefined) => number) | undefined {
   if (isFinished(windup)) {
     return undefined;
   }
 
-  const [_played, remaining, metadata] = windup;
+  const [, remaining, metadata] = windup;
 
   const [firstRemaining] = remaining;
 
   if (firstRemaining && memberIsWindup(firstRemaining)) {
-    return paceFromWindup(firstRemaining);
+    return paceFromWindup(firstRemaining, metadata.pace || parentPace);
   }
 
-  return metadata.pace;
+  return metadata.pace || parentPace;
 }
 
 export default Pace;

@@ -1,6 +1,6 @@
 {
   "name": "windups",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A typewriter effect library for React.",
   "main": "src/index.ts",
   "author": "Sam Gwilym <gwilym@me.com>",
@@ -55,6 +55,6 @@
     "hooks"
   ],
   "dependencies": {
-    "break-styled-lines": "1.1.2"
+    "break-styled-lines": "1.2.0"
   }
 }

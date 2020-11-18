@@ -1,0 +1,6 @@
+# Changelog
+
+## v1.1.0
+
+- Added a `StyledText` component to be used with `Linebreaker`. Use this if you have differently styled text within a single `Linebreaker` usage.
+- `useWindupString` will now display the current string value in React devtools
