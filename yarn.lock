@@ -1954,10 +1954,10 @@ braces@^2.3.1, braces@^2.3.2:
     split-string "^3.0.2"
     to-regex "^3.0.1"
 
-break-styled-lines@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/break-styled-lines/-/break-styled-lines-1.2.0.tgz#359c71d4965a2d15d3abdb1a276a8c629fcc85b5"
-  integrity sha512-qehG9l9VDbwuiHKu2i3ftmrVAIDIWxAq5O1HpiL/q+OPrAX+fhXmFvbqFjv+KUopnVFogGxwIEICwMJeJAMvYA==
+break-styled-lines@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/break-styled-lines/-/break-styled-lines-1.2.1.tgz#5c2f95c50e139defbe4ed6516a0449d56b36368f"
+  integrity sha512-zqxWPDWFk249H59uz3n5Fka9SEee92XtWNpWcrq9kbZV1wn7hx1YaPwntnErS41MVEjs1pIWnhijNNKLRoYrMw==
 
 brfs@^1.2.0:
   version "1.6.1"

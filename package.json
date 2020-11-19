@@ -55,6 +55,6 @@
     "hooks"
   ],
   "dependencies": {
-    "break-styled-lines": "1.2.0"
+    "break-styled-lines": "^1.2.1"
   }
 }
