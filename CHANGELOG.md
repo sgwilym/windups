@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.2
+
+- Update the break-styled-lines dependency to fix a regression in Linebreaker.
+
 ## v1.1.1
 
 - Update a few deps for security fixes
