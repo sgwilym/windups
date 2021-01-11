@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.4
+
+- Fixes a bad publish.
+
 ## v1.1.3
 
 - Export `StyledText` from entry index
