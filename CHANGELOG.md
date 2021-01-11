@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.3
+
+- Export `StyledText` from entry index
+
 ## v1.1.2
 
 - Update the break-styled-lines dependency to fix a regression in Linebreaker.
