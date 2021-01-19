@@ -3,7 +3,7 @@ import {
   memberIsWindup,
   Windup,
   lastPlayedMember,
-  isUnplayed
+  isUnplayed,
 } from "../Windup";
 import { HookMetadata } from "./useWindup";
 
@@ -28,7 +28,7 @@ export function onCharsFromWindup<
   M extends HookMetadata,
   W extends Windup<string, M>
 >(windup: W): ((char: string) => void)[] {
-  const [_played, remaining, metadata] = windup;
+  const [, remaining, metadata] = windup;
   const lastPlayed = lastPlayedMember(windup);
   const [firstRemaining] = remaining;
 

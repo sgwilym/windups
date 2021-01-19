@@ -94,7 +94,7 @@ function reduceWindupArgs(
       windupFromString<ChildrenMetadata>(" ", {
         element: React.Fragment,
         ...keyProp,
-        props: {},
+        props: { children: undefined },
         pace: () => children.props.ms,
       }),
     ];
@@ -105,7 +105,7 @@ function reduceWindupArgs(
       ...prevArgs,
       windupFromString<ChildrenMetadata>(" ", {
         element: children.type,
-        props: restProps,
+        props: { ...restProps, children: undefined },
         ...keyProp,
         ...paceMetaData,
         ...onCharMetaData,
