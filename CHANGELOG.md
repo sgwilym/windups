@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.5
+
+- Fix an issue where spaces were being passed as children when not asked for. This would result in using things like <Pause> inserting a space!
+
 ## v1.1.4
 
 - Fixes a bad publish.
