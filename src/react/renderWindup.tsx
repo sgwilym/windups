@@ -38,7 +38,7 @@ const VOID_TAGS = [
   "param",
   "source",
   "track",
-  "wbr"
+  "wbr",
 ];
 
 export function renderChildrenWindup(
@@ -50,7 +50,7 @@ export function renderChildrenWindup(
   const Outer = metadata.element || React.Fragment;
 
   if (metadata.props && Object.keys(metadata.props).includes("children")) {
-    return <Outer {...metadata.props} />;
+    return <Outer key={metadata.key} {...metadata.props} />;
   }
 
   const inner = played.reduce((acc: React.ReactNode[], playedEl) => {
