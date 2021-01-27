@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.6
+
+- Fixes an issue where React would warn about every item in a list needing a key prop whenever a component with a children prop would be rendered by `WindupChildren`
+
 ## v1.1.5
 
 - Fix an issue where spaces were being passed as children when not asked for. This would result in using things like <Pause> inserting a space!
