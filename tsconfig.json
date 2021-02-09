@@ -5,8 +5,9 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "declaration": true,
     "jsx": "react"
   },
   "include": ["src"],
-  "exclude": ["**/example.tsx", "**/*.test.ts"]
+  "exclude": ["node_modules", "**/example.tsx", "**/*.test.ts"]
 }
