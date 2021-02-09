@@ -180,7 +180,7 @@ export function playedElements<ElementType, MetadataType>([
 > {
   const playedTransformed = played.map((member) => {
     if (memberIsWindup(member)) {
-      const [_played, _remaining, metadata] = member;
+      const metadata = member[member.length - 1];
       return [playedElements(member), metadata] as PlayedWindup<
         ElementType,
         MetadataType
@@ -191,8 +191,7 @@ export function playedElements<ElementType, MetadataType>([
 
   const [firstRemaning] = remaining;
   if (memberIsWindup(firstRemaning) && !isUnplayed(firstRemaning)) {
-    const [_playedRemaining, _remaining, metadata] = firstRemaning;
-
+    const metadata = firstRemaning[firstRemaning.length - 1];
     return [
       ...playedTransformed,
       [playedElements(firstRemaning), metadata] as PlayedWindup<

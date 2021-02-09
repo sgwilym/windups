@@ -1,7 +1,8 @@
-import React from "react";
-import { ChildrenMetadata, ChildrenWindup } from "./WindupChildren";
-import { PlayedWindup, playedElements, isPlayedWindup } from "../Windup";
-import { StringMetadata, StringWindup } from "./useWindupString";
+import React from 'react';
+
+import { isPlayedWindup, playedElements, PlayedWindup } from '../Windup';
+import { StringMetadata, StringWindup } from './useWindupString';
+import { ChildrenMetadata, ChildrenWindup } from './WindupChildren';
 
 export type PlayedChildrenWindup = PlayedWindup<string, ChildrenMetadata>;
 export type PlayedStringWindup = PlayedWindup<string, StringMetadata>;
@@ -11,7 +12,7 @@ export function renderStringWindup(
 ): string {
   const played = isPlayedWindup(windup) ? windup[0] : playedElements(windup);
 
-  const inner = played.reduce((acc: string, playedEl) => {
+  const inner = played.reduce<string>((acc: string, playedEl) => {
     if (typeof playedEl === "string") {
       return acc + playedEl;
     }

@@ -1,16 +1,11 @@
-import React, { useContext, useMemo } from "react";
-import {
-  newWindup,
-  Windup,
-  WindupMember,
-  windupFromString,
-  memberIsWindup,
-} from "../Windup";
-import { isPaceElement, isMsProp } from "./Pace";
-import { isOnCharElement } from "./OnChar";
-import { isPauseElement } from "./Pause";
-import useWindup, { HookMetadata } from "./useWindup";
-import { renderChildrenWindup } from "./renderWindup";
+import React, { useContext, useMemo } from 'react';
+
+import { memberIsWindup, newWindup, Windup, windupFromString, WindupMember } from '../Windup';
+import { isOnCharElement } from './OnChar';
+import { isMsProp, isPaceElement } from './Pace';
+import { isPauseElement } from './Pause';
+import { renderChildrenWindup } from './renderWindup';
+import useWindup, { HookMetadata } from './useWindup';
 
 const WindupContext = React.createContext({
   skip: () => {
@@ -139,13 +134,14 @@ function reduceWindupArgs(
     ];
   }
 
-  const newArgs: ChildrenWindupMember[] = React.Children.toArray(
-    childrenChildren
-  ).reduce(reduceWindupArgs, []);
+  const newArgs = React.Children.toArray(childrenChildren).reduce(
+    reduceWindupArgs,
+    [] as ChildrenWindupMember[]
+  );
 
   const argsWithMetadata = newArgs.map((member) => {
     if (memberIsWindup(member)) {
-      const [played, remaining, metadata] = member;
+      const [played, remaining, metadata = {} as any] = member;
       return [
         played,
         remaining,

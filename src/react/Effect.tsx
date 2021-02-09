@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from 'react';
 
 type EffectProps = {
   fn: () => void;

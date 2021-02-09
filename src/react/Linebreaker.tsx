@@ -1,5 +1,5 @@
-import React from "react";
-import breakLines from "break-styled-lines";
+import breakLines from '@project-millipede/break-styled-lines';
+import React from 'react';
 
 function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
   return (
@@ -34,19 +34,19 @@ function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
     if (isStyledTextElement(children)) {
       return [
         ...descriptors,
-        ...React.Children.toArray(children.props.children).reduce(
+        ...(React.Children.toArray(children.props.children).reduce(
           makeGetDescriptorsOfChildren(children.props.fontStyle),
           []
-        ),
+        ) as any),
       ];
     }
 
     return [
       ...descriptors,
-      ...React.Children.toArray(children.props.children).reduce(
+      ...(React.Children.toArray(children.props.children).reduce(
         makeGetDescriptorsOfChildren(defaultFontStyle),
         []
-      ),
+      ) as any),
     ];
   };
 }
@@ -66,7 +66,7 @@ function reinsertStringsIntoChildren(
 
   const [subChildrenAcc, subStringsAcc] = React.Children.toArray(
     children.props.children
-  ).reduce(reinsertStringsIntoChildren, [[], accStrings]);
+  ).reduce(reinsertStringsIntoChildren, [[], accStrings] as any);
 
   return [
     [
@@ -110,7 +110,7 @@ const Linebreaker: React.FC<LinebreakerProps> = ({
   const descriptors = childrenArray.reduce(
     makeGetDescriptorsOfChildren(fontStyle),
     []
-  );
+  ) as any;
 
   const transformedStrings = breakLines(descriptors, width, fontStyle);
 
@@ -119,7 +119,7 @@ const Linebreaker: React.FC<LinebreakerProps> = ({
   ] = childrenArray.reduce(reinsertStringsIntoChildren, [
     [],
     transformedStrings,
-  ]);
+  ]) as any;
 
   return <div style={{ whiteSpace: "pre" }}>{transformedChildren}</div>;
 };
