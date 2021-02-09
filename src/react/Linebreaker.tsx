@@ -1,4 +1,4 @@
-import breakLines from '@project-millipede/break-styled-lines';
+import breakLines from 'break-styled-lines';
 import React from 'react';
 
 function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
