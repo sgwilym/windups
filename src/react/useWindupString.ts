@@ -27,6 +27,8 @@ export default function useWindupString(
 ] {
   const windupInit = React.useMemo(() => {
     return windupFromString<StringMetadata>(text, options);
+    // We can omit options as this is used as an initialisation value and options will not change it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   const { windup, skip, rewind, isFinished } = useWindup(windupInit, options);

@@ -7,7 +7,9 @@ type EffectProps = {
 const Effect: React.FC<EffectProps> = ({ fn }) => {
   React.useEffect(() => {
     fn();
-    // eslint-ignore-line react-hooks/exhaustive-deps
+    // We can safely omit fn from dependencies as if its value changes
+    // the whole windup will be re-rendered anyway
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

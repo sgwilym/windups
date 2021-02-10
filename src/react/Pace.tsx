@@ -28,6 +28,7 @@ export function defaultGetPace(
       if (nextChar !== "!" && nextChar !== "?") {
         return 150;
       }
+      return 20;
     case "-":
     case " ":
     case "\n":

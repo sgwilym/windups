@@ -4,7 +4,7 @@ type PauseProps = {
   ms: number;
 };
 
-const Pause: React.FC<PauseProps> = ({}: PauseProps) => {
+const Pause: React.FC<PauseProps> = () => {
   return null;
 };
 

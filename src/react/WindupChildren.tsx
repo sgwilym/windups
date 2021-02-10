@@ -205,6 +205,8 @@ function buildKeyString(children: React.ReactNode): string {
 }
 
 function useChildrenMemo<T>(factory: () => T, children: React.ReactNode) {
+  // Omitting children in favour of using a key instead
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoChildren = React.useMemo(factory, [buildKeyString(children)]);
 
   return memoChildren;
