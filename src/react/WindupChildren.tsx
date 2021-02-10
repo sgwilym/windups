@@ -1,10 +1,10 @@
-import React, { useContext, useMemo } from "react";
+import * as React from "react";
 import {
   newWindup,
   Windup,
   WindupMember,
   windupFromString,
-  memberIsWindup,
+  memberIsWindup
 } from "../Windup";
 import { isPaceElement, isMsProp } from "./Pace";
 import { isOnCharElement } from "./OnChar";
@@ -23,21 +23,21 @@ const WindupContext = React.createContext({
       "Tried to use the useRewind hook outside of a WindupChildren component!"
     );
   },
-  isFinished: false,
+  isFinished: false
 });
 
 export function useSkip() {
-  const { skip } = useContext(WindupContext);
+  const { skip } = React.useContext(WindupContext);
   return skip;
 }
 
 export function useRewind() {
-  const { rewind } = useContext(WindupContext);
+  const { rewind } = React.useContext(WindupContext);
   return rewind;
 }
 
 export function useIsFinished() {
-  const { isFinished } = useContext(WindupContext);
+  const { isFinished } = React.useContext(WindupContext);
   return isFinished;
 }
 
@@ -76,13 +76,13 @@ function reduceWindupArgs(
             return children.props.ms;
           }
           return children.props.getPace(char);
-        },
+        }
       }
     : {};
 
   const onCharMetaData = isOnCharElement(children)
     ? {
-        onChar: children.props.fn,
+        onChar: children.props.fn
       }
     : {};
 
@@ -95,8 +95,8 @@ function reduceWindupArgs(
         element: React.Fragment,
         ...keyProp,
         props: { children: undefined },
-        pace: () => children.props.ms,
-      }),
+        pace: () => children.props.ms
+      })
     ];
   }
 
@@ -108,8 +108,8 @@ function reduceWindupArgs(
         props: { ...restProps, children: undefined },
         ...keyProp,
         ...paceMetaData,
-        ...onCharMetaData,
-      }),
+        ...onCharMetaData
+      })
     ];
   }
 
@@ -121,8 +121,8 @@ function reduceWindupArgs(
         props: restProps,
         ...keyProp,
         ...paceMetaData,
-        ...onCharMetaData,
-      }),
+        ...onCharMetaData
+      })
     ];
   }
 
@@ -134,8 +134,8 @@ function reduceWindupArgs(
         props: { children: childrenChildren, ...restProps },
         ...keyProp,
         ...paceMetaData,
-        ...onCharMetaData,
-      }),
+        ...onCharMetaData
+      })
     ];
   }
 
@@ -143,7 +143,7 @@ function reduceWindupArgs(
     childrenChildren
   ).reduce(reduceWindupArgs, []);
 
-  const argsWithMetadata = newArgs.map((member) => {
+  const argsWithMetadata = newArgs.map(member => {
     if (memberIsWindup(member)) {
       const [played, remaining, metadata] = member;
       return [
@@ -152,8 +152,8 @@ function reduceWindupArgs(
         {
           ...paceMetaData,
           ...onCharMetaData,
-          ...metadata,
-        },
+          ...metadata
+        }
       ] as ChildrenWindupMember;
     }
     return member;
@@ -166,8 +166,8 @@ function reduceWindupArgs(
       props: restProps,
       ...keyProp,
       ...paceMetaData,
-      ...onCharMetaData,
-    }),
+      ...onCharMetaData
+    })
   ];
 }
 
@@ -181,7 +181,7 @@ function buildKeyString(children: React.ReactNode): string {
     return "";
   }
 
-  return React.Children.map(children, (child) => {
+  const keys = React.Children.map(children, child => {
     if (typeof child === "string") {
       return child;
     }
@@ -195,11 +195,17 @@ function buildKeyString(children: React.ReactNode): string {
     }
 
     return "";
-  }).join(",");
+  });
+
+  if (!keys) {
+    return "";
+  }
+
+  return keys.join(",");
 }
 
 function useChildrenMemo<T>(factory: () => T, children: React.ReactNode) {
-  const memoChildren = useMemo(factory, [buildKeyString(children)]);
+  const memoChildren = React.useMemo(factory, [buildKeyString(children)]);
 
   return memoChildren;
 }
@@ -207,7 +213,7 @@ function useChildrenMemo<T>(factory: () => T, children: React.ReactNode) {
 const WindupChildren: React.FC<WindupChildrenProps> = ({
   children,
   onFinished,
-  skipped,
+  skipped
 }) => {
   const windupInit = useChildrenMemo(() => {
     return newWindup<string, ChildrenMetadata>(
@@ -218,7 +224,7 @@ const WindupChildren: React.FC<WindupChildrenProps> = ({
 
   const { windup, skip, rewind, isFinished } = useWindup(windupInit, {
     onFinished,
-    skipped,
+    skipped
   });
 
   return (
@@ -226,7 +232,7 @@ const WindupChildren: React.FC<WindupChildrenProps> = ({
       value={{
         skip,
         rewind,
-        isFinished,
+        isFinished
       }}
     >
       {renderChildrenWindup(windup)}

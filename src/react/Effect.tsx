@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import * as React from "react";
 
 type EffectProps = {
   fn: () => void;
 };
 
 const Effect: React.FC<EffectProps> = ({ fn }) => {
-  useEffect(() => {
+  React.useEffect(() => {
     fn();
+    // eslint-ignore-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

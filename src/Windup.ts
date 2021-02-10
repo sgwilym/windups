@@ -71,7 +71,7 @@ export function isUnplayed<ElementType, MetadataType>(
 
 export function isFinished<ElementType, MetadataType>([
   _played,
-  remaining,
+  remaining
 ]: Windup<ElementType, MetadataType>): boolean {
   return remaining.length === 0;
 }
@@ -107,7 +107,7 @@ export function rewind<ElementType, MetadataType>(
   return [
     [],
     [...played.map(mapRewind), ...remaining.map(mapRewind)],
-    metadata,
+    metadata
   ];
 }
 
@@ -125,13 +125,13 @@ export function windupAsString<MetadataType>(
   };
   return [
     played.map(stringify).join(""),
-    remaining.map(stringify).join(""),
+    remaining.map(stringify).join("")
   ].join("");
 }
 
 export function lastPlayedMember<ElementType, MetadataType>([
   played,
-  remaining,
+  remaining
 ]: Windup<ElementType, MetadataType>):
   | WindupMember<ElementType, MetadataType>
   | undefined {
@@ -174,13 +174,13 @@ export type PlayedWindup<ElementType, MetadataType> = [
 
 export function playedElements<ElementType, MetadataType>([
   played,
-  remaining,
+  remaining
 ]: Windup<ElementType, MetadataType>): Array<
   ElementType | PlayedWindup<ElementType, MetadataType>
 > {
-  const playedTransformed = played.map((member) => {
+  const playedTransformed = played.map(member => {
     if (memberIsWindup(member)) {
-      const [_played, _remaining, metadata] = member;
+      const [, , metadata] = member;
       return [playedElements(member), metadata] as PlayedWindup<
         ElementType,
         MetadataType
@@ -191,14 +191,14 @@ export function playedElements<ElementType, MetadataType>([
 
   const [firstRemaning] = remaining;
   if (memberIsWindup(firstRemaning) && !isUnplayed(firstRemaning)) {
-    const [_playedRemaining, _remaining, metadata] = firstRemaning;
+    const [, , metadata] = firstRemaning;
 
     return [
       ...playedTransformed,
       [playedElements(firstRemaning), metadata] as PlayedWindup<
         ElementType,
         MetadataType
-      >,
+      >
     ];
   }
 
@@ -207,7 +207,7 @@ export function playedElements<ElementType, MetadataType>([
 
 export function nextElement<ElementType, MetadataType>([
   _played,
-  remaining,
+  remaining
 ]: Windup<ElementType, MetadataType>): ElementType | undefined {
   const [nextVal] = remaining;
 

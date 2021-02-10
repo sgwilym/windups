@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { ChildrenMetadata, ChildrenWindup } from "./WindupChildren";
 import { PlayedWindup, playedElements, isPlayedWindup } from "../Windup";
 import { StringMetadata, StringWindup } from "./useWindupString";
@@ -38,7 +38,7 @@ const VOID_TAGS = [
   "param",
   "source",
   "track",
-  "wbr",
+  "wbr"
 ];
 
 export function renderChildrenWindup(

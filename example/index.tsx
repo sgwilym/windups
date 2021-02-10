@@ -1,13 +1,18 @@
-import React, { StrictMode } from "react";
+import * as React from "react";
 import { render } from "react-dom";
-import useWindupString from "./react/useWindupString";
-import WindupChildren, { useSkip, useRewind } from "./react/WindupChildren";
-import Pace from "./react/Pace";
-import OnChar from "./react/OnChar";
-import Pause from "./react/Pause";
-import Effect from "./react/Effect";
-import CharWrapper from "./react/CharWrapper";
-import Linebreaker, { StyledText } from "./react/Linebreaker";
+import {
+  CharWrapper,
+  Effect,
+  Linebreaker,
+  OnChar,
+  Pace,
+  Pause,
+  StyledText,
+  useRewind,
+  useSkip,
+  useWindupString,
+  WindupChildren,
+} from "../.";
 
 const TestComponent: React.FC = ({ children }) => {
   return <b>{children}</b>;
@@ -44,7 +49,7 @@ const Example = () => {
   const [string] = useWindupString("This text came from a hook!");
 
   return (
-    <StrictMode>
+    <React.StrictMode>
       <WindupChildren>
         <img src="hi.jpg" />
       </WindupChildren>
@@ -118,7 +123,7 @@ const Example = () => {
           </TestComponent>
         </CharWrapper>
       </WindupChildren>
-    </StrictMode>
+    </React.StrictMode>
   );
 };
 
