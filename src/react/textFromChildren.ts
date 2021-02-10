@@ -1,7 +1,7 @@
-import React, { isValidElement } from "react";
+import * as React from "react";
 
 export default function textFromChildren(children: React.ReactNode): string {
-  return React.Children.map(children, (ch) => {
+  const text = React.Children.map(children, ch => {
     if (typeof ch === "string") {
       return ch;
     }
@@ -10,7 +10,7 @@ export default function textFromChildren(children: React.ReactNode): string {
       return ch.toString();
     }
 
-    if (!isValidElement(ch)) {
+    if (!React.isValidElement(ch)) {
       return "";
     }
 
@@ -19,5 +19,11 @@ export default function textFromChildren(children: React.ReactNode): string {
     }
 
     return "";
-  }).join("");
+  });
+
+  if (!text) {
+    return "";
+  }
+
+  return text.join("");
 }

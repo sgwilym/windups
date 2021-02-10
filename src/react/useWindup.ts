@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback, useReducer } from "react";
+import * as React from "react";
 import { defaultGetPace, paceFromWindup } from "./Pace";
 import {
   isFinished,
@@ -7,7 +7,7 @@ import {
   fastForward,
   rewind,
   Windup,
-  nextElement,
+  nextElement
 } from "../Windup";
 import { onCharsFromWindup } from "./OnChar";
 
@@ -80,27 +80,27 @@ export default function useWindup<M extends HookMetadata>(
   rewind: () => void;
   isFinished: boolean;
 } {
-  const [{ windup, didFinishOnce }, dispatch] = useReducer<
+  const [{ windup, didFinishOnce }, dispatch] = React.useReducer<
     ReducerType<M>,
     Windup<string, M>
   >(windupReducer, windupInit, initWindupState);
 
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const windupIsFinished = isFinished(windup);
 
-  const skip = useCallback(() => {
+  const skip = React.useCallback(() => {
     if (!windupIsFinished) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
 
       dispatch({
-        type: "fast-forward",
+        type: "fast-forward"
       });
     }
   }, [windupIsFinished]);
 
-  const rewind = useCallback(() => {
+  const rewind = React.useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -109,19 +109,19 @@ export default function useWindup<M extends HookMetadata>(
   }, []);
 
   // If windup arg changes, we should reset
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch({ type: "replace", windup: windupInit });
   }, [windupInit]);
 
   // If skipped is changes to true, we should skip
   // And if it's changed to false, we should restart
-  useEffect(() => {
+  React.useEffect(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     if (options.skipped) {
       dispatch({
-        type: "fast-forward",
+        type: "fast-forward"
       });
     }
     if (options.skipped === false) {
@@ -130,18 +130,18 @@ export default function useWindup<M extends HookMetadata>(
   }, [options.skipped]);
 
   // When the windup changes, onChar should fire
-  useEffect(() => {
+  React.useEffect(() => {
     const onChars = onCharsFromWindup(windup);
     const lastEl = lastPlayedElement(windup);
     if (onChars.length > 0 && lastEl) {
-      onChars.forEach((onChar) => {
+      onChars.forEach(onChar => {
         onChar(lastEl);
       });
     }
   }, [windup]);
 
   // If windup finishes, the onFinished should fire
-  useEffect(() => {
+  React.useEffect(() => {
     // Put this in a new context so that the windup finishes visually before firing this
     if (didFinishOnce === false && windupIsFinished) {
       const timeout = setTimeout(() => {
@@ -157,7 +157,7 @@ export default function useWindup<M extends HookMetadata>(
   }, [didFinishOnce, windupIsFinished, options]);
 
   // the windup effect itself
-  useEffect(() => {
+  React.useEffect(() => {
     if (!windupIsFinished) {
       const getPace = paceFromWindup(windup) || defaultGetPace;
       const lastEl = lastPlayedElement(windup);
@@ -180,6 +180,6 @@ export default function useWindup<M extends HookMetadata>(
     windup,
     skip,
     rewind,
-    isFinished: windupIsFinished,
+    isFinished: windupIsFinished
   };
 }

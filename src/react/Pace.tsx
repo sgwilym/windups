@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { isFinished, memberIsWindup, Windup } from "../Windup";
 import { HookMetadata } from "./useWindup";
 
@@ -28,6 +28,7 @@ export function defaultGetPace(
       if (nextChar !== "!" && nextChar !== "?") {
         return 150;
       }
+      return 20;
     case "-":
     case " ":
     case "\n":

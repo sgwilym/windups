@@ -1,9 +1,9 @@
-import React from "react";
+import * as React from "react";
 import {
   memberIsWindup,
   Windup,
   lastPlayedMember,
-  isUnplayed,
+  isUnplayed
 } from "../Windup";
 import { HookMetadata } from "./useWindup";
 

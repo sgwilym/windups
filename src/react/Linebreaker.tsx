@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import breakLines from "break-styled-lines";
 
 function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
@@ -13,7 +13,7 @@ function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
     if (typeof children === "number") {
       return [
         ...descriptors,
-        { text: children.toString(), font: defaultFontStyle },
+        { text: children.toString(), font: defaultFontStyle }
       ];
     }
 
@@ -27,7 +27,7 @@ function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
     ) {
       return [
         ...descriptors,
-        { text: children.props.children, font: children.props.fontStyle },
+        { text: children.props.children, font: children.props.fontStyle }
       ];
     }
 
@@ -37,7 +37,7 @@ function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
         ...React.Children.toArray(children.props.children).reduce(
           makeGetDescriptorsOfChildren(children.props.fontStyle),
           []
-        ),
+        )
       ];
     }
 
@@ -46,7 +46,7 @@ function makeGetDescriptorsOfChildren(defaultFontStyle: string) {
       ...React.Children.toArray(children.props.children).reduce(
         makeGetDescriptorsOfChildren(defaultFontStyle),
         []
-      ),
+      )
     ];
   };
 }
@@ -72,10 +72,10 @@ function reinsertStringsIntoChildren(
     [
       ...accChildren,
       React.cloneElement(children, {
-        children: subChildrenAcc,
-      }),
+        children: subChildrenAcc
+      })
     ],
-    subStringsAcc,
+    subStringsAcc
   ];
 }
 
@@ -99,7 +99,7 @@ type LinebreakerProps = {
 const Linebreaker: React.FC<LinebreakerProps> = ({
   children,
   fontStyle,
-  width,
+  width
 }) => {
   // CAVEATS:
   // fontStyle must match the font style of the characters inside
@@ -115,10 +115,10 @@ const Linebreaker: React.FC<LinebreakerProps> = ({
   const transformedStrings = breakLines(descriptors, width, fontStyle);
 
   const [
-    transformedChildren,
+    transformedChildren
   ] = childrenArray.reduce(reinsertStringsIntoChildren, [
     [],
-    transformedStrings,
+    transformedStrings
   ]);
 
   return <div style={{ whiteSpace: "pre" }}>{transformedChildren}</div>;
