@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.7
+
+- Changes the build process used for the package.
+
 ## v1.1.6
 
 - Fixes an issue where React would warn about every item in a list needing a key prop whenever a component with a children prop would be rendered by `WindupChildren`
