@@ -25,7 +25,7 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/index-.js",
+      "require": "./dist/index.js",
       "import": "./dist/windups.esm.js"
     }
   },
