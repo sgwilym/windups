@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.9
+
+- Updates break-styled-lines to v1.2.2, which now offers a CommonJS export
+
 ## v1.1.7
 
 - Changes the build process used for the package.

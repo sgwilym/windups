@@ -1,7 +1,7 @@
 {
   "name": "windups",
   "version": "1.1.9",
-  "description": "A unique typewriter effect library for React",
+  "description": "A unique typewriter effect library for React.",
   "author": "Sam Gwilym <gwilym@me.com>",
   "license": "MIT",
   "homepage": "https://windups.gwil.co",
