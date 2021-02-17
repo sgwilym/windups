@@ -34,7 +34,7 @@
   },
   "repository": "github:sgwilym/windups",
   "dependencies": {
-    "break-styled-lines": "^1.2.1"
+    "break-styled-lines": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
