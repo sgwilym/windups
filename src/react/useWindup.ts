@@ -77,6 +77,8 @@ export default function useWindup<M extends HookMetadata>(
 ): {
   windup: Windup<string, M>;
   skip: () => void;
+  pause: () => void;
+  resume: () => void;
   rewind: () => void;
   isFinished: boolean;
 } {
@@ -87,6 +89,10 @@ export default function useWindup<M extends HookMetadata>(
 
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const windupIsFinished = isFinished(windup);
+
+  const nextCharAtRef = React.useRef<number | null>(null);
+  const pauseDelayRemainingRef = React.useRef<number | null>(null);
+  const isPausedRef = React.useRef<boolean>(false);
 
   const skip = React.useCallback(() => {
     if (!windupIsFinished) {
@@ -99,6 +105,36 @@ export default function useWindup<M extends HookMetadata>(
       });
     }
   }, [windupIsFinished]);
+
+  const pause = React.useCallback(() => {
+    if (isPausedRef.current === true) {
+      return;
+    }
+
+    if (timeoutRef.current) {
+      isPausedRef.current = true;
+
+      clearTimeout(timeoutRef.current);
+      pauseDelayRemainingRef.current = Math.max(
+        0,
+        nextCharAtRef.current ?? 0 - Date.now()
+      );
+    }
+  }, [isPausedRef, timeoutRef, nextCharAtRef, pauseDelayRemainingRef]);
+
+  const resume = React.useCallback(() => {
+    if (isPausedRef.current !== true) {
+      return;
+    }
+
+    if (!windupIsFinished) {
+      isPausedRef.current = false;
+
+      setTimeout(() => {
+        dispatch({ type: "next" });
+      }, pauseDelayRemainingRef.current ?? 0);
+    }
+  }, [isPausedRef, windupIsFinished, pauseDelayRemainingRef]);
 
   const rewind = React.useCallback(() => {
     if (timeoutRef.current) {
@@ -162,12 +198,13 @@ export default function useWindup<M extends HookMetadata>(
       const getPace = paceFromWindup(windup) || defaultGetPace;
       const lastEl = lastPlayedElement(windup);
       const nextEl = nextElement(windup);
-      timeoutRef.current = setTimeout(
-        () => {
-          dispatch({ type: "next" });
-        },
-        lastEl ? getPace(lastEl, nextEl) : 0
-      );
+
+      const pace = lastEl ? getPace(lastEl, nextEl) : 0;
+
+      nextCharAtRef.current = Date.now() + pace;
+      timeoutRef.current = setTimeout(() => {
+        dispatch({ type: "next" });
+      }, pace);
       return () => {
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
@@ -179,6 +216,8 @@ export default function useWindup<M extends HookMetadata>(
   return {
     windup,
     skip,
+    pause,
+    resume,
     rewind,
     isFinished: windupIsFinished
   };
