@@ -120,7 +120,7 @@ export default function useWindup<M extends HookMetadata>(
         nextCharAtRef.current ?? 0 - Date.now()
       );
     }
-  }, [isPausedRef, timeoutRef, nextCharAtRef, pauseDelayRemainingRef]);
+  }, []);
 
   const resume = React.useCallback(() => {
     if (isPausedRef.current !== true) {
@@ -133,7 +133,7 @@ export default function useWindup<M extends HookMetadata>(
         dispatch({ type: "next" });
       }, pauseDelayRemainingRef.current ?? 0);
     }
-  }, [isPausedRef, windupIsFinished, pauseDelayRemainingRef]);
+  }, [windupIsFinished]);
 
   const rewind = React.useCallback(() => {
     if (timeoutRef.current) {
