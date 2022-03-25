@@ -111,9 +111,9 @@ export default function useWindup<M extends HookMetadata>(
       return;
     }
 
-    if (timeoutRef.current) {
-      isPausedRef.current = true;
+    isPausedRef.current = true;
 
+    if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       pauseDelayRemainingRef.current = Math.max(
         0,
@@ -128,9 +128,8 @@ export default function useWindup<M extends HookMetadata>(
     }
 
     if (!windupIsFinished) {
-      isPausedRef.current = false;
-
       setTimeout(() => {
+        isPausedRef.current = false;
         dispatch({ type: "next" });
       }, pauseDelayRemainingRef.current ?? 0);
     }
@@ -202,9 +201,13 @@ export default function useWindup<M extends HookMetadata>(
       const pace = lastEl ? getPace(lastEl, nextEl) : 0;
 
       nextCharAtRef.current = Date.now() + pace;
-      timeoutRef.current = setTimeout(() => {
-        dispatch({ type: "next" });
-      }, pace);
+
+      if (isPausedRef.current !== true) {
+        timeoutRef.current = setTimeout(() => {
+          dispatch({ type: "next" });
+        }, pace);
+      }
+
       return () => {
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
