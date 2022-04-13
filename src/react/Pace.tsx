@@ -38,7 +38,7 @@ export function defaultGetPace(
   }
 }
 
-const Pace: React.FC<PaceProps> = ({ children }) => {
+const Pace: React.FC<React.PropsWithChildren<PaceProps>> = ({ children }) => {
   return <>{children}</>;
 };
 

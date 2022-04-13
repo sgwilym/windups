@@ -172,6 +172,7 @@ function reduceWindupArgs(
 }
 
 type WindupChildrenProps = {
+  children: React.ReactNode;
   onFinished?: () => void;
   skipped?: boolean;
 };

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 type CharWrapperProps = {
+  children: React.ReactNode;
   element: React.ElementType;
 };
 
