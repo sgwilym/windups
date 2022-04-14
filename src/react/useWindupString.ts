@@ -21,6 +21,8 @@ export default function useWindupString(
   string,
   {
     skip: () => void;
+    pause: () => void;
+    resume: () => void;
     rewind: () => void;
     isFinished: boolean;
   }
@@ -31,10 +33,13 @@ export default function useWindupString(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
-  const { windup, skip, rewind, isFinished } = useWindup(windupInit, options);
+  const { windup, skip, pause, resume, rewind, isFinished } = useWindup(
+    windupInit,
+    options
+  );
 
   const rendered = renderStringWindup(windup);
   React.useDebugValue(rendered);
 
-  return [rendered, { skip, rewind, isFinished }];
+  return [rendered, { skip, pause, resume, rewind, isFinished }];
 }

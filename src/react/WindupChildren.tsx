@@ -18,6 +18,16 @@ const WindupContext = React.createContext({
       "Tried to use the useSkip hook outside of a WindupChildren component!!"
     );
   },
+  pause: () => {
+    console.warn(
+      "Tried to use the usePause hook outside of a WindupChildren component!!"
+    );
+  },
+  resume: () => {
+    console.warn(
+      "Tried to use the useResume hook outside of a WindupChildren component!!"
+    );
+  },
   rewind: () => {
     console.warn(
       "Tried to use the useRewind hook outside of a WindupChildren component!"
@@ -29,6 +39,16 @@ const WindupContext = React.createContext({
 export function useSkip() {
   const { skip } = React.useContext(WindupContext);
   return skip;
+}
+
+export function usePause() {
+  const { pause } = React.useContext(WindupContext);
+  return pause;
+}
+
+export function useResume() {
+  const { resume } = React.useContext(WindupContext);
+  return resume;
 }
 
 export function useRewind() {
@@ -175,6 +195,7 @@ type WindupChildrenProps = {
   children: React.ReactNode;
   onFinished?: () => void;
   skipped?: boolean;
+  isPaused?: boolean;
 };
 
 function buildKeyString(children: React.ReactNode): string {
@@ -216,7 +237,8 @@ function useChildrenMemo<T>(factory: () => T, children: React.ReactNode) {
 const WindupChildren: React.FC<WindupChildrenProps> = ({
   children,
   onFinished,
-  skipped
+  skipped,
+  isPaused = false
 }) => {
   const windupInit = useChildrenMemo(() => {
     return newWindup<string, ChildrenMetadata>(
@@ -225,15 +247,28 @@ const WindupChildren: React.FC<WindupChildrenProps> = ({
     );
   }, children);
 
-  const { windup, skip, rewind, isFinished } = useWindup(windupInit, {
-    onFinished,
-    skipped
-  });
+  const { windup, skip, pause, resume, rewind, isFinished } = useWindup(
+    windupInit,
+    {
+      onFinished,
+      skipped
+    }
+  );
+
+  React.useEffect(() => {
+    if (isPaused === true) {
+      pause();
+    } else {
+      resume();
+    }
+  }, [isPaused, pause, resume]);
 
   return (
     <WindupContext.Provider
       value={{
         skip,
+        pause,
+        resume,
         rewind,
         isFinished
       }}
