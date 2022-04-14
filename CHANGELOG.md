@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.0
+
+- Adds a new API for pausing and resuming windups! `<WindupChildren>` now has a `isPaused` prop; there are new `usePause` and `useResume` hooks, and `useWindupString` returns `pause` and `resume` callbacks. Thank you [anulman](https://github.com/anulman)!
+- Updates typings for compatibility with React 18. Thank you [witchtrash](https://github.com/witchtrash)!
+
 ## v1.1.9
 
 - Updates break-styled-lines to v1.2.2, which now offers a CommonJS export
