@@ -8,6 +8,7 @@ import {
 import { HookMetadata } from "./useWindup";
 
 type OnCharProps = {
+  children: React.ReactNode;
   fn: (char: string) => void;
 };
 

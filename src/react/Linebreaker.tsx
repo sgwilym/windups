@@ -92,6 +92,7 @@ export function StyledText({ children }: StyledTextProps) {
 }
 
 type LinebreakerProps = {
+  children: React.ReactNode;
   fontStyle: string;
   width: number;
 };
