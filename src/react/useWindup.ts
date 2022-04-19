@@ -117,7 +117,7 @@ export default function useWindup<M extends HookMetadata>(
       clearTimeout(timeoutRef.current);
       pauseDelayRemainingRef.current = Math.max(
         0,
-        nextCharAtRef.current ?? 0 - Date.now()
+        (nextCharAtRef.current ?? 0) - Date.now()
       );
     }
   }, []);
