@@ -1,9 +1,19 @@
 # Changelog
 
+## v1.2.1
+
+- Fixes an issue where using `resume` would cause the windup to add the next
+  character 50 years in the future. Thank you
+  [anulman](https://github.com/anulman)!
+
 ## v1.2.0
 
-- Adds a new API for pausing and resuming windups! `<WindupChildren>` now has a `isPaused` prop; there are new `usePause` and `useResume` hooks, and `useWindupString` returns `pause` and `resume` callbacks. Thank you [anulman](https://github.com/anulman)!
-- Updates typings for compatibility with React 18. Thank you [witchtrash](https://github.com/witchtrash)!
+- Adds a new API for pausing and resuming windups! `<WindupChildren>` now has a
+  `isPaused` prop; there are new `usePause` and `useResume` hooks, and
+  `useWindupString` returns `pause` and `resume` callbacks. Thank you
+  [anulman](https://github.com/anulman)!
+- Updates typings for compatibility with React 18. Thank you
+  [witchtrash](https://github.com/witchtrash)!
 
 ## v1.1.9
 
@@ -15,11 +25,14 @@
 
 ## v1.1.6
 
-- Fixes an issue where React would warn about every item in a list needing a key prop whenever a component with a children prop would be rendered by `WindupChildren`
+- Fixes an issue where React would warn about every item in a list needing a key
+  prop whenever a component with a children prop would be rendered by
+  `WindupChildren`
 
 ## v1.1.5
 
-- Fix an issue where spaces were being passed as children when not asked for. This would result in using things like <Pause> inserting a space!
+- Fix an issue where spaces were being passed as children when not asked for.
+  This would result in using things like <Pause> inserting a space!
 
 ## v1.1.4
 
@@ -39,5 +52,6 @@
 
 ## v1.1.0
 
-- Added a `StyledText` component to be used with `Linebreaker`. Use this if you have differently styled text within a single `Linebreaker` usage.
+- Added a `StyledText` component to be used with `Linebreaker`. Use this if you
+  have differently styled text within a single `Linebreaker` usage.
 - `useWindupString` will now display the current string value in React devtools
