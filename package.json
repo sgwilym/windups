@@ -26,7 +26,8 @@
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./dist/windups.esm.js"
+      "import": "./dist/windups.esm.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "peerDependencies": {
